@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.jade.myapp.board.dao.IReplyRepository">
+
+	<select id="getReplyListByBoardId" parameterType="map" resultType="com.jade.myapp.board.model.Reply">
+	<![CDATA[
+		SELECT 
+	    	REPLY_ID AS "replyId",
+	    	BOARD_ID AS "boardId",
+	    	ID AS "id",
+	    	CONTENT AS "content",
+	    	WRITE_DATE AS "writeDate"
+		FROM
+	    	S_REPLY
+		WHERE
+	    	BOARD_ID = #{boardId}
+	]]>
+	</select>
+
+</mapper>

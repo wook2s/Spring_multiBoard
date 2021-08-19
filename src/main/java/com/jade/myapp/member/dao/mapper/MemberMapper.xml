@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.jade.myapp.member.dao.IMemberRepository">
+
+	<select id="getAllBoardListByCategory" parameterType="map" resultType="com.jade.myapp.board.model.Board">
+	<![CDATA[
+	
+	]]>
+	</select>
+	
+	<update id="addReadCount" parameterType="map">
+	<![CDATA[
+	
+	]]>
+	</update>
+	
+	<insert id="insertBoard" parameterType="com.jade.myapp.board.model.Board" >
+	<![CDATA[
+	
+	]]>	
+	</insert>
+	
+	<insert id="insertFile" parameterType="com.jade.myapp.board.model.BoardFile" >
+	<![CDATA[
+	
+	]]>	
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="int">
+	<![CDATA[
+	
+	]]>
+	</delete>
+	
+
+</mapper>

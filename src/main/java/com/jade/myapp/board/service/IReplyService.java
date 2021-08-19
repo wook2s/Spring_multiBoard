@@ -8,4 +8,11 @@ public interface IReplyService {
 
 	List<Reply> getReplyListByBoardId(int boardId);
 
+	void replyInsert(Reply reply);
+
+	void replyDeleteByBoardId(int boardId);
+
+	void replyDeleteByReplyId(int replyId);
+
+	void replyModify(Reply reply);
 }

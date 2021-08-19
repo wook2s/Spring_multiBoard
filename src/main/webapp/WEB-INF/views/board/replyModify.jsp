@@ -23,23 +23,21 @@
 		<p>댓글 없음</p>
 	</c:if>
 	<c:forEach var="reply" items="${replyList }">
-		<p>작성자 : ${reply.id} 댓글 내용 : ${reply.content}
-		<a href="<c:url value='/board/detail/replyModify/${board.boardId}/${reply.replyId}'/>">수정</a>
-		<a href="<c:url value='/board/detail/replyDelete/${board.boardId}/${reply.replyId}'/>">삭제</a>
-		</p>
+		<c:if test="${reply.replyId != replyId}">
+			<p>작성자 : ${reply.id} 댓글 내용 : ${reply.content}</p>
+		</c:if>
+		
+		<c:if test="${reply.replyId == replyId}">
+			<form action="<c:url value='/board/detail/replyModify/${board.boardId}/${reply.replyId}'/>" method="post">
+				<p>
+				작성자 : <input type="text" name="id" value="${reply.id}" readonly="readonly">
+				댓글 내용 : <input type="text" name="content" value="${reply.content}">
+				<input type="submit" value="댓글 수정하기"/>
+				</p>
+			</form>
+		</c:if>
 	</c:forEach>
 	
-	<form action="<c:url value='/board/detail/replyInsert/${board.boardId}'/>" method="post">
-		<input type="text" name="id">
-		<input type="text" name="content">
-		<input type="hidden" name="boardId" value="${board.boardId}">
-		<input type="submit" value="댓글달기">
-	</form>
-	
-	
-	
-	<a href="<c:url value='/board/modify/${board.boardId}'/>">게시글 수정</a><br>
-	<a href="<c:url value='/board/delete/${board.boardId}'/>">게시글 삭제</a><br>
 	<a href="<c:url value='/board/list/1'/>">게시판 돌아가기</a>
 	
 </body>

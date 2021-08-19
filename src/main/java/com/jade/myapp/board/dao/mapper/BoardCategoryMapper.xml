@@ -11,8 +11,7 @@
 		    CATEGORY_NAME 			AS "categoryName",
 		    CATEGORY_DESCRIPTION	AS "categoryDescription"
 		FROM 
-    		S_BOARD_CATEGORY;
-		
+    		S_BOARD_CATEGORY
 		]]>
 	</select>
 </mapper>

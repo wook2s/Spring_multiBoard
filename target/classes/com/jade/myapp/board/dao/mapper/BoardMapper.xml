@@ -34,7 +34,8 @@
 			WRITE_DATE 	AS "writeDate",
 			READ_COUNT 	AS "readCount",
 			REPLY_NUM 	AS "replyNum",
-			TITLE 		AS "title"
+			TITLE 		AS "title",
+			File_NAME 	AS "fileName"
 		FROM
 		    S_BOARD
 		WHERE BOARD_ID = #{boardId}  
@@ -42,12 +43,137 @@
 	</select>
 	
 	<update id="addReadCount" parameterType="map">
+	<![CDATA[
 		UPDATE
 			S_BOARD
     	SET 
     		READ_COUNT = READ_COUNT+1
     	WHERE 
     		BOARD_ID = #{boardId}
+	]]>
 	</update>
+	
+	<select id="getMaxBoardId" resultType="int">
+	<![CDATA[
+		SELECT 
+			NVL(MAX(BOARD_ID),0) 
+		FROM 
+			S_BOARD
+	]]>
+	</select>
+	
+	<select id="getMaxFileId" resultType="int">
+	<![CDATA[
+		SELECT 
+			NVL(MAX(FILE_ID),0) 
+		FROM 
+			S_BOARD_FILE
+	]]>
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.jade.myapp.board.model.Board" >
+	<![CDATA[
+		INSERT INTO S_BOARD
+    		(BOARD_ID, CATEGORY_ID, ID, CONTENT, TITLE, FILE_NAME)
+    	VALUES
+   			(#{boardId}, #{categoryId}, #{id}, #{content}, #{title}, #{fileName, jdbcType=VARCHAR})
+	]]>	
+	</insert>
+	
+	<insert id="insertFile" parameterType="com.jade.myapp.board.model.BoardFile" >
+	<![CDATA[
+		INSERT INTO S_BOARD_FILE
+    		(FILE_ID, BOARD_ID, FILE_NAME, FILE_SIZE, FILE_CONTENT_TYPE, FILE_DATA)
+    	VALUES
+    		(#{fileId}, #{boardId}, #{fileName}, #{fileSize}, #{fileContentType}, #{fileData})
+	]]>	
+	</insert>
+	
+	<select id="getFileByBoardId" parameterType="int" resultType="com.jade.myapp.board.model.BoardFile">
+	<![CDATA[
+		SELECT 
+   			FILE_ID AS "fileId", 
+    		BOARD_ID AS "boardId", 
+    		FILE_NAME AS "fileName", 
+   		 	FILE_SIZE AS "fileSize",
+    		FILE_CONTENT_TYPE AS "fileContentType",
+		    FILE_DATA AS "fileData"
+		FROM
+    		S_BOARD_FILE WHERE BOARD_ID = #{boardId}
+	]]>
+	</select>
+	
+	<update id="updateBoard" parameterType="com.jade.myapp.board.model.Board">
+	<![CDATA[
+		UPDATE 
+		    S_BOARD
+		SET
+		    CATEGORY_ID = #{categoryId},
+		    TITLE = #{title},
+		    CONTENT = #{content},
+		    FILE_NAME = #{fileName, jdbcType=VARCHAR}
+		WHERE
+	    	BOARD_ID = #{boardId}
+	]]>
+	</update>
+
+	<update id="updateFile" parameterType="com.jade.myapp.board.model.BoardFile">
+	<![CDATA[
+		UPDATE 
+		    S_BOARD_FILE
+		SET
+		    FILE_NAME = #{fileName}, 
+		    FILE_SIZE = #{fileSize}, 
+		    FILE_CONTENT_TYPE = #{fileContentType}, 
+		    FILE_DATA = #{fileData}
+		WHERE
+	    	BOARD_ID = #{boardId}
+	]]>
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+	<![CDATA[
+		DELETE 
+			S_BOARD 
+		WHERE	
+			BOARD_ID = #{boardId}
+	]]>
+	</delete>
+	
+	<delete id="deleteFile" parameterType="int">
+	<![CDATA[
+		DELETE
+			S_BOARD_FILE
+		WHERE
+			BOARD_ID = #{boardId}
+	]]>
+	</delete>
+		
+	<update id="addReplyNum" parameterType="int">
+	<![CDATA[
+		UPDATE 
+		    S_BOARD
+		SET
+			REPLY_NUM = REPLY_NUM+1
+		WHERE
+	    	BOARD_ID = #{boardId}
+	]]>
+	</update>
+	
+	<update id="subReplyNum" parameterType="int">
+	<![CDATA[
+		UPDATE 
+		    S_BOARD
+		SET
+			REPLY_NUM = REPLY_NUM -1
+		WHERE
+	    	BOARD_ID = #{boardId}
+	]]>
+	</update>
+	
+	
+	
+	
+	
 
 </mapper>

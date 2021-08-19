@@ -10,4 +10,14 @@ public interface IReplyRepository {
 
 	List<Reply> getReplyListByBoardId(@Param(value = "boardId")int boardId);
 
+	void replyInsert(Reply reply);
+
+	int getMaxReplyId();
+
+	void replyDeleteByBoardId(int boardId);
+
+	void replyDeleteByReplyId(int replyId);
+
+	void replyModify(Reply reply);
+
 }

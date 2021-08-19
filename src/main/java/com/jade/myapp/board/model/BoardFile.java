@@ -45,6 +45,11 @@ public class BoardFile {
 	public void setFileData(byte[] fileData) {
 		this.fileData = fileData;
 	}
+	@Override
+	public String toString() {
+		return "BoardFile [fileId=" + fileId + ", boardId=" + boardId + ", fileName=" + fileName + ", fileSize="
+				+ fileSize + ", fileContentType=" + fileContentType + "]\n";
+	}
 	
 	
 	

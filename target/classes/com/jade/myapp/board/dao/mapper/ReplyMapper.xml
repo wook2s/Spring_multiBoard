@@ -18,5 +18,52 @@
 	    	BOARD_ID = #{boardId}
 	]]>
 	</select>
+	
+	<select id="getMaxReplyId" resultType="int">
+	<![CDATA[
+		SELECT 
+			NVL(MAX(REPLY_ID),0) 
+		FROM 
+			S_REPLY
+	]]>
+	</select>
+	
+	<insert id="replyInsert" parameterType="com.jade.myapp.board.model.Reply" >
+	<![CDATA[
+		INSERT INTO S_REPLY
+    		(REPLY_ID, BOARD_ID, ID, CONTENT)
+    	VALUES
+   			(#{replyId}, #{boardId}, #{id}, #{content})
+	]]>	
+	</insert>
+	
+	<delete id="replyDeleteByBoardId" parameterType="int">
+	<![CDATA[
+		DELETE 
+			S_REPLY
+		WHERE	
+			BOARD_ID = #{boardId}
+	]]>
+	</delete>
+	
+	<delete id="replyDeleteByReplyId" parameterType="int">
+	<![CDATA[
+		DELETE 
+			S_REPLY
+		WHERE	
+			REPLY_ID = #{replyId}
+	]]>
+	</delete>
+	
+	<update id="replyModify" parameterType="com.jade.myapp.board.model.Reply">
+	<![CDATA[
+		UPDATE
+			S_REPLY
+    	SET 
+    		CONTENT = #{content}
+    	WHERE 
+    		REPLY_ID = #{replyId}
+	]]>
+	</update>
 
 </mapper>

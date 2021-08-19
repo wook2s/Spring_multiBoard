@@ -10,12 +10,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p>보드 번호 : ${board.boardId}, 보드 제목 : ${board.title}, 읽은 횟수${board.readCount}</p>
-	
-	<p>댓글</p>
-	<c:forEach var="reply" items="${replyList }">
-		<p>${reply.id},${reply.content}</p>
-	</c:forEach>
+	<h1>게시글 업로드 화면</h1>
+	<form action="/myapp/board/insert" method="post" enctype="multipart/form-data">
+		카테고리<input type="text" name="categoryId"/>	<br>
+		제목<input type="text" name="title"/>	<br>
+		아이디<input type="text" name="id"/><br>	
+		내용<input type="text" name="content"/><br>	
+		파일<input type="file" name="file"/><br>	
+		<input type="submit" value="제출"/><br>	
+	</form>
 	
 </body>
 </html>

@@ -175,6 +175,7 @@ public class BoardController {
 	@RequestMapping(value = "/board/detail/replyInsert/{boardId}", method = RequestMethod.POST)
 	public String replyInsert(@PathVariable int boardId, Reply reply) {
 		
+		reply.setContent(Jsoup.clean(reply.getContent(), Whitelist.basic()));
 		replyService.replyInsert(reply);
 		boardService.addReplyNum(boardId);
 		
@@ -202,7 +203,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/detail/replyModify/{boardId}/{replyId}", method = RequestMethod.POST)
 	public String replyModify(Reply reply,@PathVariable int boardId, @PathVariable int replyId) {
-		
+		reply.setContent(Jsoup.clean(reply.getContent(), Whitelist.basic()));
 		replyService.replyModify(reply);
 		
 		return "redirect:/board/detail/"+boardId;

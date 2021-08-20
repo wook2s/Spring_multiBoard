@@ -4,33 +4,50 @@
     
 <mapper namespace="com.jade.myapp.member.dao.IMemberRepository">
 
-	<select id="getAllBoardListByCategory" parameterType="map" resultType="com.jade.myapp.board.model.Board">
+	<select id="getMemberById" parameterType="string" resultType="com.jade.myapp.member.model.Member">
 	<![CDATA[
-	
+		SELECT 
+			ID		AS "id",
+			PWD 	AS "pwd",
+			NAME	AS "name",
+			EMAIL 	AS "email",
+			PHONE 	AS "phone"
+		FROM
+			S_MEMBER
+		WHERE
+			ID=#{id}		
 	]]>
 	</select>
 	
-	<update id="addReadCount" parameterType="map">
+	<update id="memberModify" parameterType="com.jade.myapp.member.model.Member">
 	<![CDATA[
-	
+		UPDATE 
+			S_MEMBER
+		SET
+			PWD = #{pwd},
+			NAME = #{name},
+			EMAIL = #{email},
+			PHONE =#{phone} 
+		WHERE 
+			ID=#{id}		
 	]]>
 	</update>
 	
-	<insert id="insertBoard" parameterType="com.jade.myapp.board.model.Board" >
+	<insert id="memberInsert" parameterType="com.jade.myapp.member.model.Member" >
 	<![CDATA[
-	
+		INSERT INTO S_MEMBER
+			(ID, PWD, NAME, EMAIL, PHONE)
+		VALUES
+			(#{id}, #{pwd}, #{name}, #{email}, #{phone})
 	]]>	
 	</insert>
 	
-	<insert id="insertFile" parameterType="com.jade.myapp.board.model.BoardFile" >
+	<delete id="memberDelete" parameterType="string">
 	<![CDATA[
-	
-	]]>	
-	</insert>
-	
-	<delete id="deleteBoard" parameterType="int">
-	<![CDATA[
-	
+		DELETE 
+			S_MEMBER
+		WHERE
+			ID=#{id}
 	]]>
 	</delete>
 	

@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-		<context:property-placeholder location="classpath:database/jdbc.properties"/>
+	<context:property-placeholder location="classpath:database/jdbc.properties"/>
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}"/>
@@ -47,6 +47,8 @@
 	<mybatis-spring:scan base-package="com.jade.myapp.board.dao"/>
 	<context:component-scan base-package="com.jade.myapp.board.service"/>
 
+	<mybatis-spring:scan base-package="com.jade.myapp.member.dao"/>
+	<context:component-scan base-package="com.jade.myapp.member.service"/>
 	
 	
 </beans>

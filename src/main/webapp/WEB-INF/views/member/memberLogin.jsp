@@ -19,6 +19,11 @@
 			alert("비밀번호를 확인해주세요");
 		</script>
 	</c:if>
+	<c:if test="${loginMessage eq 'needLogin'}">
+		<script type="text/javascript">
+			alert("로그인 후 이용해주세요");
+		</script>
+	</c:if>
 <form method="post" action="<c:url value='/member/login'/>">
 <h1  style="text-align:center">로그인 하세요</h1>
 	<table  align="center">

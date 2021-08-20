@@ -2,17 +2,26 @@ package com.jade.myapp.util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public class LoginInterceptor implements HandlerInterceptor{
-
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		if(id == null || id.equals("")) {
+			//reattrs.addFlashAttribute("loginMessage", "needLogin");
+			response.sendRedirect(request.getContextPath()+"/member/login");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -28,5 +37,6 @@ public class LoginInterceptor implements HandlerInterceptor{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

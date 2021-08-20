@@ -79,7 +79,7 @@ public class BoardController {
 		model.addAttribute("replyList",replyList);
 		model.addAttribute("board", board);
 		
-		return "board/boardDetail";
+		return "board.boardDetail";
 	}
 	
 	@RequestMapping(value = "/board/detail/downloadFile/{boardId}")
@@ -102,7 +102,7 @@ public class BoardController {
 		List<BoardCategory> categoryList = boardCategoryService.getCategoryList();
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("id", (String)session.getAttribute("id"));
-		return "board/insertBoard";
+		return "board.insertBoard";
 	}
 	
 	@RequestMapping(value = "/board/insert", method = RequestMethod.POST)
@@ -141,7 +141,7 @@ public class BoardController {
 		Board board =boardService.getBoard(boardId);
 		model.addAttribute("board", board);
 		
-		return "board/boardModify";
+		return "board.boardModify";
 	}
 	@RequestMapping(value = "/board/modify/{boardId}", method = RequestMethod.POST)
 	public String boardModify(Board board, RedirectAttributes reattrs, String preFileName) {
@@ -212,7 +212,7 @@ public class BoardController {
 		model.addAttribute("replyId", replyId);
 		model.addAttribute("replyList", replyList);
 		
-		return "board/replyModify";
+		return "board.replyModify";
 	}
 	
 	@RequestMapping(value = "/board/detail/replyModify/{boardId}/{replyId}", method = RequestMethod.POST)

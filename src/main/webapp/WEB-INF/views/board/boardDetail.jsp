@@ -8,43 +8,107 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	#container{
+		width: 80%;
+		margin: 0px auto;
+	}
+	th{
+		text-align: left;
+		width: 100px;
+	}
+	#content{
+		border: thin solid black;
+		height: 300px;
+		border-radius: 10px 10px;
+	}
+	#replyId{
+		font-size: large;
+	}
+	#goList{
+			display : inline-block;
+			height : 50px;
+			width: 180px;
+			border:  thin black solid;
+			vertical-align:middle;
+			line-height: 50px;
+			font-size: large;
+			background-color: ivory;
+			text-align: center;
+		}
+	#goListDiv{
+		text-align: right;
+	}
+</style>
 </head>
 <body>
-	<h1>보드 디테일 페이지입니다.</h1>
-	<p>보드 번호 : ${board.boardId}<br> 
-	작성자 : ${board.id}<br>
-	보드 제목 : ${board.title}<br>
-	읽은 횟수 : ${board.readCount}<br>
+	<div id="container">
+		<table>
+			<tr>
+				<th>번호</th>
+				<td>${board.boardId}</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>${board.id}</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>${board.title}</td>
+			</tr>
+			<tr>
+				<th>조회수</th>
+				<td>${board.readCount}</td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td><a href="<c:url value='/board/detail/downloadFile/${board.boardId}'/>">${board.fileName}</a></td>
+			</tr>
+		</table><br>
+		
+	<div id="content">
+		<p>${board.content}</p>
+		
+	</div>
+	<br>
 	<hr>
-	내용 : ${board.content}</p>
-	<a href="<c:url value='/board/detail/downloadFile/${board.boardId}'/>">${board.fileName}</a>
-	<hr>
-	<p>댓글</p>
+	<p style="text-align: center;">댓글</p>
 	<c:if test="${empty replyList}">
 		<p>댓글 없음</p>
 	</c:if>
-	<c:forEach var="reply" items="${replyList }">
-		<p>작성자 : ${reply.id} 댓글 내용 : ${reply.content}
-		<c:if test="${reply.id == id}">
-		<a href="<c:url value='/board/detail/replyModify/${board.boardId}/${reply.replyId}'/>">수정</a>
-		<a href="<c:url value='/board/detail/replyDelete/${board.boardId}/${reply.replyId}'/>">삭제</a>
-		</c:if>
-		</p>
-	</c:forEach>
+	
+	<table style="width: 100%">
+		<c:forEach var="reply" items="${replyList }">
+		<tr>
+			<th width="5%">${reply.id}</th>
+			<td width="70%">${reply.content}</td>
+			<c:if test="${reply.id == id}">
+			<td width="10%"><a href="<c:url value='/board/detail/replyModify/${board.boardId}/${reply.replyId}'/>">수정</a></td>
+			<td width="10%"><a href="<c:url value='/board/detail/replyDelete/${board.boardId}/${reply.replyId}'/>">삭제</a></td>
+			</c:if>
+		</tr>
+		</c:forEach>
+	</table>
+	<br>
 	
 	<form action="<c:url value='/board/detail/replyInsert/${board.boardId}'/>" method="post">
-		<input type="text" name="id" value="${id}" readonly="readonly"/>
-		<input type="text" name="content"/>
+		<input id="replyId" type="text" name="id" value="${id}" readonly="readonly" style="border:none; width: 50px;"/>
+		<input type="text" name="content" style="width: 70%; height: 20px;"/>
 		<input type="hidden" name="_boardId" value="${board.boardId}/">
 		<input type="submit" value="댓글달기">
 	</form>
 	
+	<hr><br><br>
+	<div id="goListDiv">
+		<c:if test="${board.id == id}">
+			<a href="<c:url value='/board/modify/${board.boardId}'/>"><div id="goList">게시물 수정</div></a>
+			<a href="<c:url value='/board/delete/${board.boardId}'/>"><div id="goList">게시물 삭제</div></a>
+		</c:if>
+		<a href="<c:url value='/board/list/1'/>"><div id="goList">게시판 돌아가기</div></a>
+	</div>
 	
-	<c:if test="${board.id == id}">
-	<a href="<c:url value='/board/modify/${board.boardId}'/>">게시글 수정</a><br>
-	<a href="<c:url value='/board/delete/${board.boardId}'/>">게시글 삭제</a><br>
-	</c:if>
-	<a href="<c:url value='/board/list/1'/>">게시판 돌아가기</a>
+	<div style="margin-bottom: 100px;"></div>
 	
+	</div>
 </body>
 </html>

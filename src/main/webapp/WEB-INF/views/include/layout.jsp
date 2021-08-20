@@ -20,7 +20,7 @@
     		float:left;
     		width: 74%;
     		margin-right: 1%;
-    		height: 500px;
+    		min-height : 500px;
     		
     	}
     	#tilesAside{

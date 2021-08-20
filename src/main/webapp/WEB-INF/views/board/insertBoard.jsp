@@ -14,7 +14,7 @@
 	<form action="/myapp/board/insert" method="post" enctype="multipart/form-data">
 		카테고리<input type="text" name="categoryId"/>	<br>
 		제목<input type="text" name="title"/>	<br>
-		아이디<input type="text" name="id"/><br>	
+		아이디<input type="text" name="id" value="${id}" readonly="readonly"/><br>	
 		내용<input type="text" name="content"/><br>	
 		파일<input type="file" name="file"/><br>	
 		<input type="submit" value="제출"/><br>	

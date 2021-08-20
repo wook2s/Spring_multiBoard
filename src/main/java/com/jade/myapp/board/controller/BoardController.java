@@ -2,7 +2,12 @@ package com.jade.myapp.board.controller;
 
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
@@ -43,12 +48,19 @@ public class BoardController {
 	@Autowired
 	IReplyService replyService;
 	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Model model, HttpSession session) {
+		model.addAttribute("id", (String)session.getAttribute("id"));
+		return "board.home";
+	}
+	
+	
 	@RequestMapping(value = "/board/list/{categoryId}/{nowPage}")
 	public String getAllBoardListByCategory(@PathVariable int categoryId, @PathVariable int nowPage, Model model) {
 		List<Board> boardList = boardService.getAllBoardListByCategory(categoryId, nowPage);
 		model.addAttribute("boardList", boardList);
 		
-		return "board/listPage";
+		return "board.listPage";
 	}
 	
 	@RequestMapping(value = "/board/list/{categoryId}")
@@ -58,11 +70,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/detail/{boardId}")
-	public String getBoardDetail(@PathVariable int boardId, Model model) {
+	public String getBoardDetail(@PathVariable int boardId, Model model, HttpSession session) {
 		boardService.addReadCount(boardId);
 		List<Reply> replyList = replyService.getReplyListByBoardId(boardId);
 		Board board = boardService.getBoard(boardId);
 		
+		model.addAttribute("id", (String)session.getAttribute("id"));
 		model.addAttribute("replyList",replyList);
 		model.addAttribute("board", board);
 		
@@ -85,9 +98,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/insert", method = RequestMethod.GET)
-	public String insertBoard(Model model) {
+	public String insertBoard(Model model, HttpSession session) {
 		List<BoardCategory> categoryList = boardCategoryService.getCategoryList();
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("id", (String)session.getAttribute("id"));
 		return "board/insertBoard";
 	}
 	

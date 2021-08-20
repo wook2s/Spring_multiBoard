@@ -22,7 +22,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/insert", method = RequestMethod.GET)
 	public String memberInsert() {
 
-		return "member/memberInsert";
+		return "member.memberInsert";
 	}
 
 	@RequestMapping(value = "/member/insert", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public String memberLogin() {
 
-		return "member/memberLogin";
+		return "member.memberLogin";
 	}
 
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
@@ -55,7 +55,7 @@ public class MemberController {
 
 	}
 
-	@RequestMapping(value = "/member/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String memberLogout(Member member, HttpSession session) {
 		session.removeAttribute("id");
 		return "redirect:/";

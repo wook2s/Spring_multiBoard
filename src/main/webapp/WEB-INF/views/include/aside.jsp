@@ -40,10 +40,14 @@
 		<p>로그인 후 서비스를 이용해주세요</p>
 		<a href="<c:url value='/member/login'/>"><div id="asideButton">로그인</div></a><br><br>
 		<a href="<c:url value='/member/insert'/>"><div id="asideButton">회원가입</div></a>
+		<br>
 	</c:if>
 	<c:if test="${!empty id}">
 		<p>${id}님 환영합니다!</p><br>
-		<a href="<c:url value='/member/logout'/>"><div id="asideButton">로그아웃</div></a><br>
+		<a href="<c:url value='/member/logout'/>" onclick="return confirm('로그아웃 하시겠습니까?');"><div id="asideButton">로그아웃</div></a><br>
+		<br>
 	</c:if>
+	
+ <audio src="music/opening.mp3" controls autoplay="autoplay" loop="loop"></audio>
 </div>
 </html>

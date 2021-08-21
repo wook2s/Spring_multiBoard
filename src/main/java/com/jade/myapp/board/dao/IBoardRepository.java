@@ -27,15 +27,28 @@ public interface IBoardRepository {
 	BoardFile getFileByBoardId(int boardId);
 
 	void updateBoard(Board board);
-
 	void updateFile(BoardFile file);
 
 	void deleteBoard(int boardId);
 	void deleteFile(int boardId);
 
 	void addReplyNum(int boardId);
-
 	void subReplyNum(int boardId);
 
+	List<Board> search(
+			@Param(value = "categoryId") int categoryId,
+			@Param(value = "content")String content,
+			@Param(value = "title")String title,
+			@Param(value = "id")String id,
+			@Param(value = "word")String word);
+
+	int getTotalBoardCount(int categoryId);
+
+	int getSearchTotalCount(
+			@Param(value = "categoryId")int categoryId, 
+			@Param(value = "content")String content,
+			@Param(value = "title")String title, 
+			@Param(value = "id")String id, 
+			@Param(value = "word")String word);
 
 }

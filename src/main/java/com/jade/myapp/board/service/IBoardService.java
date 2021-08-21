@@ -19,5 +19,8 @@ public interface IBoardService {
 	void deleteBoard(int boardId);
 	void addReplyNum(int boardId);
 	void subReplyNum(int boardId);
+	List<Board> search(int categoryId, String option, String word);
+	int getTotalBoardCount(int categoryId);
+	int getSearchTotalCount(int categoryId, String option, String word);
 
 }

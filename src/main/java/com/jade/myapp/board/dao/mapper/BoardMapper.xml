@@ -171,9 +171,67 @@
 	]]>
 	</update>
 	
+	<select id="search" parameterType="map" resultType="com.jade.myapp.board.model.Board">
+		SELECT 
+			BOARD_ID 	AS "boardId",
+			CATEGORY_ID AS "categoryId",
+			ID 			AS "id",
+			CONTENT 	AS "content",
+			WRITE_DATE 	AS "writeDate",
+			READ_COUNT 	AS "readCount",
+			REPLY_NUM 	AS "replyNum",
+			TITLE 		AS "title",
+			File_NAME 	AS "fileName"
+		FROM 
+			S_BOARD 
+		<where>    		
+    		<if test="categoryId != null">
+        		CATEGORY_ID = #{categoryId} 
+			</if>	
+			<if test="content != null">
+				AND CONTENT LIKE #{word}
+			</if>		
+			<if test="title != null">
+				AND TITLE LIKE #{word}
+			</if>		
+			<if test="id != null">
+				AND ID LIKE #{word}
+			</if>	
+		</where>
+		ORDER BY BOARD_ID DESC    		
+	</select>
 	
+	<select id="getSearchTotalCount" parameterType="map" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM 
+			S_BOARD 
+		<where>    		
+    		<if test="categoryId != null">
+        		CATEGORY_ID = #{categoryId} 
+			</if>	
+			<if test="content != null">
+				AND CONTENT LIKE #{word}
+			</if>		
+			<if test="title != null">
+				AND TITLE LIKE #{word}
+			</if>		
+			<if test="id != null">
+				AND ID LIKE #{word}
+			</if>	
+		</where>    		
+	</select>
 	
-	
+	<select id="getTotalBoardCount" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT 
+   			COUNT(*)
+		FROM
+    		S_BOARD
+   		WHERE 
+   			CATEGORY_ID= #{categoryId}
+	]]>
+	</select>
 	
 
 </mapper>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,16 +25,19 @@
 </head>
 <body>
 <div id="search">
+	<form action="<c:url value='/board/search'/>" method="POST">
 	<select name="categoryId">
   		<option value="1">일반 게시판</option>
   		<option value="2">영상 게시판</option>
   		<option value="3">사진 게시판</option>
 	</select>
-	<select name="searchOption">
+	<select name="option">
   		<option value="content">게시글</option>
-  		<option value="writer">작성자</option>
+  		<option value="title">제목</option>
+  		<option value="id">작성자</option>
 	</select>
-	<input id="area" type="text" name="search">&nbsp;<input id="button"type="submit" value="검색">
+	<input id="area" type="text" name="word" required="required">&nbsp;<input id="button"type="submit" value="검색">
+	</form>
 </div>
 </body>
 </html>

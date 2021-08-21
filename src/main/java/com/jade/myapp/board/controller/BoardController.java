@@ -58,7 +58,10 @@ public class BoardController {
 	@RequestMapping(value = "/board/list/{categoryId}/{nowPage}")
 	public String getAllBoardListByCategory(@PathVariable int categoryId, @PathVariable int nowPage, Model model) {
 		List<Board> boardList = boardService.getAllBoardListByCategory(categoryId, nowPage);
+		int totalBoardCount = boardService.getTotalBoardCount(categoryId);
+		
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("totalBoardCount", totalBoardCount);
 		
 		return "board.listPage";
 	}
@@ -222,8 +225,16 @@ public class BoardController {
 		
 		return "redirect:/board/detail/"+boardId;
 	}
+	
+	@RequestMapping(value = "/board/search", method =RequestMethod.POST)
+	public String search(int categoryId, String option, String word, Model model) {
+		
+		List<Board> boardList = boardService.search(categoryId, option, word);
+		int searchTotalCount = boardService.getSearchTotalCount(categoryId, option, word);
+		
+		model.addAttribute("totalBoardCount", searchTotalCount);
+		model.addAttribute("boardList", boardList);
+		return "board.listPage";
+	}
+	
 }
-
-
-
-

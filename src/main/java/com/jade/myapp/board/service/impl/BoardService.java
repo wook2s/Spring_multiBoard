@@ -117,5 +117,52 @@ public class BoardService implements IBoardService{
 		boardRepository.subReplyNum(boardId);
 	}
 
+	@Override
+	public List<Board> search(int categoryId, String option, String word) {
+		
+		word = "%"+word+"%";
+		
+		String content = null;
+		String title = null;
+		String id = null;
+		
+		if(option.equals("content")) {
+			content = option;
+		}else if(option.equals("title")) {
+			title = option;
+		}else if(option.equals("id")) {
+			id = option;
+		}
+		
+		List<Board> boardList = boardRepository.search(categoryId, content, title, id, word);
+		return boardList;
+	}
+
+	@Override
+	public int getTotalBoardCount(int categoryId) {
+		int totalBoardCount =  boardRepository.getTotalBoardCount(categoryId);
+		return totalBoardCount;
+	}
+
+	@Override
+	public int getSearchTotalCount(int categoryId, String option, String word) {
+		word = "%"+word+"%";
+		
+		String content = null;
+		String title = null;
+		String id = null;
+		
+		if(option.equals("content")) {
+			content = option;
+		}else if(option.equals("title")) {
+			title = option;
+		}else if(option.equals("id")) {
+			id = option;
+		}
+		
+		int totalCount = boardRepository.getSearchTotalCount(categoryId, content, title, id, word);
+		return totalCount;
+	}
+
 
 }

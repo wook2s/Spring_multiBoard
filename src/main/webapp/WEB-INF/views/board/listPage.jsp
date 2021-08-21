@@ -36,12 +36,16 @@
 		th{
 			background-color: ivory;
 		}
+		p{
+			margin :2% 10%;
+			text-align: right;
+		}
 	</style>
 
 </head>
 <body>
 <div id="container">
-	<h1>1번 카테고리 리스트 페이지입니다.</h1>
+	<p>총 게시물 : ${totalBoardCount}</p>
 	<table border="1">
 		<tr>
 			<th width="1%">글번호</th>

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
     
 <!DOCTYPE html>
 <html>
@@ -40,12 +41,16 @@
 			margin :2% 10%;
 			text-align: right;
 		}
+		#tableContainer{
+			min-height: 300px;
+		}
 	</style>
 
 </head>
 <body>
 <div id="container">
 	<p>총 게시물 : ${totalBoardCount}</p>
+	<div id="tableContainer">
 	<table border="1">
 		<tr>
 			<th width="1%">글번호</th>
@@ -64,6 +69,37 @@
 			</tr>
 		</c:forEach>
 	</table>
+	</div>
+	
+	<div id="pager">
+		<span style="display: inline-block; width: 21px ">
+		<c:if test="${nowPage != 1}">
+			<span><a href="<c:url value="/board/list/${categoryId}/${nowPage-1}"/>">[&lt]</a></span>
+		</c:if>
+		</span>
+
+		<span  style="width: 70px; display:inline-block;">
+		<fmt:parseNumber var="totalBoardCount" value="${totalBoardCount}"/>
+		<c:set var="start" value="${(((nowPage-1)/5) - (((nowPage-1)/5)%1))*5+1}" />
+		<c:forEach begin="${start}" end="${start+4}" varStatus="cnt">
+			<c:if test="${cnt.current <= lastPage }">
+				<c:if test="${nowPage != cnt.current}">
+					<a href="<c:url value="/board/list/${categoryId}/${cnt.current}"/>">${cnt.current}</a>
+				</c:if>
+				<c:if test="${nowPage == cnt.current}">
+					<a href="<c:url value="/board/list/${categoryId}/${cnt.current}"/>" style="color: red;">${cnt.current}</a>
+				</c:if>
+			</c:if>
+		</c:forEach>
+		</span>
+		
+		<span style="display: inline-block; width: 21px">
+		<c:if test="${nowPage != lastPage}">
+			<span><a href="<c:url value="/board/list/${categoryId}/${nowPage+1}"/>">[&gt]</a></span> 
+		</c:if>
+		</span>
+	</div>
+	
 	<br>
 	<div id="writeDiv" >
 	<a href="<c:url value='/board/insert'/>"><div id="writeButton">글쓰기</div></a>

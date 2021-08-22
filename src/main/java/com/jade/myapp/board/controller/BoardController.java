@@ -60,8 +60,18 @@ public class BoardController {
 		List<Board> boardList = boardService.getAllBoardListByCategory(categoryId, nowPage);
 		int totalBoardCount = boardService.getTotalBoardCount(categoryId);
 		
+		int lastPage = 0;
+		if(totalBoardCount % 10 == 0) {
+			lastPage = totalBoardCount/10;
+		}else if(totalBoardCount % 10 != 0) {
+			lastPage = totalBoardCount/10 +1;
+		}
+		
+		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalBoardCount", totalBoardCount);
+		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("lastPage", lastPage);
 		
 		return "board.listPage";
 	}

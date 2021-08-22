@@ -172,7 +172,7 @@
 	</update>
 	
 	<select id="search" parameterType="map" resultType="com.jade.myapp.board.model.Board">
-		SELECT 
+<!-- 		SELECT 
 			BOARD_ID 	AS "boardId",
 			CATEGORY_ID AS "categoryId",
 			ID 			AS "id",
@@ -198,7 +198,42 @@
 				AND ID LIKE #{word}
 			</if>	
 		</where>
-		ORDER BY BOARD_ID DESC    		
+		ORDER BY BOARD_ID DESC -->
+		SELECT * FROM 
+			(      
+			SELECT  
+			    ROWNUM      AS "RNUM",
+			    BOARD_ID 	AS "boardId",
+			    CATEGORY_ID AS "categoryId",
+			    ID 			AS "id",
+			    CONTENT 	AS "content",
+			    WRITE_DATE 	AS "writeDate",
+			    READ_COUNT 	AS "readCount",
+			    REPLY_NUM 	AS "replyNum",
+			    TITLE 		AS "title",
+			    File_NAME 	AS "fileName"
+			FROM(    
+			    SELECT * FROM S_BOARD 
+			    <where>    		
+		    		<if test="categoryId != null">
+		        		CATEGORY_ID = #{categoryId} 
+					</if>	
+					<if test="content != null">
+						AND CONTENT LIKE #{word}
+					</if>		
+					<if test="title != null">
+						AND TITLE LIKE #{word}
+					</if>		
+					<if test="id != null">
+						AND ID LIKE #{word}
+					</if>	
+				</where>
+			    ORDER BY BOARD_ID DESC
+			    )
+    		)
+    		WHERE
+    			RNUM BETWEEN #{start} AND #{end}
+   		
 	</select>
 	
 	<select id="getSearchTotalCount" parameterType="map" resultType="int">

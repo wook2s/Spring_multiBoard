@@ -118,7 +118,7 @@ public class BoardService implements IBoardService{
 	}
 
 	@Override
-	public List<Board> search(int categoryId, String option, String word) {
+	public List<Board> search(int categoryId, String option, String word, int nowPage) {
 		
 		word = "%"+word+"%";
 		
@@ -134,7 +134,10 @@ public class BoardService implements IBoardService{
 			id = option;
 		}
 		
-		List<Board> boardList = boardRepository.search(categoryId, content, title, id, word);
+		int start = (nowPage-1)*10 +1;
+		int end =  nowPage*10;
+		
+		List<Board> boardList = boardRepository.search(categoryId, content, title, id, word, start, end);
 		return boardList;
 	}
 

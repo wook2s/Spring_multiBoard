@@ -40,7 +40,9 @@ public interface IBoardRepository {
 			@Param(value = "content")String content,
 			@Param(value = "title")String title,
 			@Param(value = "id")String id,
-			@Param(value = "word")String word);
+			@Param(value = "word")String word, 
+			@Param(value = "start")int start, 
+			@Param(value = "end")int end);
 
 	int getTotalBoardCount(int categoryId);
 

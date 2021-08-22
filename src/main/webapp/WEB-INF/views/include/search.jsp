@@ -36,7 +36,10 @@
   		<option value="title">제목</option>
   		<option value="id">작성자</option>
 	</select>
-	<input id="area" type="text" name="word" required="required">&nbsp;<input id="button"type="submit" value="검색">
+	<input type="hidden" name="nowPage" value="1">
+	<input id="area" type="text" name="word" required="required">
+	&nbsp;
+	<input id="button"type="submit" value="검색">
 	</form>
 </div>
 </body>

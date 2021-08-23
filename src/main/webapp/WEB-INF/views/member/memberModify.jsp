@@ -36,9 +36,8 @@
     <tr>
         <td width="200"><p>&nbsp;</p></td>
         <td width="400">
-	<input type="submit" value="정보 수정" onclick="return confirm('회원 정보를 수정하시겠습니까?');">
-	<input type="reset" value="다시 입력">
-  </td>
+			<input type="submit" value="정보 수정" onclick="return confirm('회원 정보를 수정하시겠습니까?');">
+  		</td>
     </tr>
 </table>
 </form>

@@ -28,12 +28,12 @@
 	<form action="<c:url value='/board/search'/>" method="POST">
 	<select name="categoryId">
   		<option value="1">일반 게시판</option>
-  		<option value="2">영상 게시판</option>
-  		<option value="3">사진 게시판</option>
+  		<option value="2">사진 게시판</option>
+  		<option value="3">영상 게시판</option>
 	</select>
 	<select name="option">
-  		<option value="content">게시글</option>
   		<option value="title">제목</option>
+  		<option value="content">게시글</option>
   		<option value="id">작성자</option>
 	</select>
 	<input type="hidden" name="nowPage" value="1">

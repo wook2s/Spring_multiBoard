@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
@@ -54,7 +55,11 @@ public class BoardController {
 	
 	
 	@RequestMapping(value = "/board/list/{categoryId}/{nowPage}")
-	public String getAllBoardListByCategory(@PathVariable int categoryId, @PathVariable int nowPage, Model model) {
+	public String getAllBoardListByCategory(
+			@PathVariable int categoryId, 
+			@PathVariable int nowPage, 
+			Model model,
+			HttpServletRequest request) {
 		List<Board> boardList = boardService.getAllBoardListByCategory(categoryId, nowPage);
 		int totalBoardCount = boardService.getTotalBoardCount(categoryId);
 		
@@ -65,6 +70,11 @@ public class BoardController {
 			lastPage = totalBoardCount/10 +1;
 		}
 		
+		String pathTmp = request.getRequestURI();
+		int tmp = pathTmp.lastIndexOf("/");
+		String path = pathTmp.substring(0, tmp+1);
+		
+		model.addAttribute("path", path);
 		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalBoardCount", totalBoardCount);
@@ -75,9 +85,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/list/{categoryId}")
-	public String getAllBoardListByCategory(@PathVariable int categoryId, Model model) {
+	public String getAllBoardListByCategory(@PathVariable int categoryId, Model model, HttpServletRequest request) {
 		
-		return getAllBoardListByCategory(categoryId, 1, model);
+		return getAllBoardListByCategory(categoryId, 1, model, request);
 	}
 	
 	@RequestMapping(value = "/board/detail/{boardId}")
@@ -247,14 +257,30 @@ public class BoardController {
 			@PathVariable String option,
 			@PathVariable String word,
 			@PathVariable String nowPage,
-			Model model) {
+			Model model,
+			HttpServletRequest request) {
 		
 		int _categoryId = Integer.parseInt(categoryId);
 		int _nowPage = Integer.parseInt(nowPage);
+		int lastPage = 0;
+		
+		String pathTmp = request.getRequestURI();
+		int tmp = pathTmp.lastIndexOf("/");
+		String path = pathTmp.substring(0, tmp+1);
+		model.addAttribute("path", path);
+		
 		
 		List<Board> boardList = boardService.search(_categoryId, option, word, _nowPage);
 		int searchTotalCount = boardService.getSearchTotalCount(_categoryId, option, word);
 		
+		if(searchTotalCount % 10 == 0) {
+			lastPage = searchTotalCount / 10;
+		}else {
+			lastPage = searchTotalCount/10 +1;
+		}
+		
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("nowPage", _nowPage);
 		model.addAttribute("totalBoardCount", searchTotalCount);
 		model.addAttribute("boardList", boardList);
 		return "board.listPage";

@@ -57,9 +57,9 @@
 	<p>게시판 메인 페이지입니다.</p>
 	<nav>
 		<ul>
-			<li><a href="<c:url value='/board/list/1'/>">1번 카테고리</a></li>
-			<li><a href="<c:url value='/board/list/2'/>">2번 카테고리</a></li>
-			<li><a href="<c:url value='/board/list/3'/>">3번 카테고리</a></li>
+			<li><a href="<c:url value='/board/list/1/1'/>">1번 카테고리</a></li>
+			<li><a href="<c:url value='/board/list/2/1'/>">2번 카테고리</a></li>
+			<li><a href="<c:url value='/board/list/3/1'/>">3번 카테고리</a></li>
 		</ul>
 	</nav>
 </div>

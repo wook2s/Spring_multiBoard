@@ -74,28 +74,32 @@
 	<div id="pager">
 		<span style="display: inline-block; width: 21px ">
 		<c:if test="${nowPage != 1}">
-			<span><a href="<c:url value="/board/list/${categoryId}/${nowPage-1}"/>">[&lt]</a></span>
+			<%-- <span><a href="<c:url value="/board/list/${categoryId}/${nowPage-1}"/>">[&lt]</a></span> --%>
+			<span><a href="${path}${nowPage-1}">[&lt]</a></span>
 		</c:if>
 		</span>
-
+					<!-- /board/search/{categoryId}/{option}/{word}/{nowPage} -->
 		<span  style="width: 70px; display:inline-block;">
 		<fmt:parseNumber var="totalBoardCount" value="${totalBoardCount}"/>
 		<c:set var="start" value="${(((nowPage-1)/5) - (((nowPage-1)/5)%1))*5+1}" />
 		<c:forEach begin="${start}" end="${start+4}" varStatus="cnt">
 			<c:if test="${cnt.current <= lastPage }">
 				<c:if test="${nowPage != cnt.current}">
-					<a href="<c:url value="/board/list/${categoryId}/${cnt.current}"/>">${cnt.current}</a>
+					<%-- <a href="<c:url value="/board/list/${categoryId}/${cnt.current}"/>">${cnt.current}</a> --%>
+					<a href="${path}${cnt.current}">${cnt.current}</a>
 				</c:if>
 				<c:if test="${nowPage == cnt.current}">
-					<a href="<c:url value="/board/list/${categoryId}/${cnt.current}"/>" style="color: red;">${cnt.current}</a>
+					<%-- <a href="<c:url value="/board/list/${categoryId}/${cnt.current}"/>" style="color: red;">${cnt.current}</a> --%>
+					<a href="${path}${cnt.current}" style="color: red;">${cnt.current}</a>
 				</c:if>
 			</c:if>
 		</c:forEach>
 		</span>
 		
 		<span style="display: inline-block; width: 21px">
-		<c:if test="${nowPage != lastPage}">
-			<span><a href="<c:url value="/board/list/${categoryId}/${nowPage+1}"/>">[&gt]</a></span> 
+		<c:if test="${nowPage != lastPage && lastPage != 0}">
+			<%-- <span><a href="<c:url value="/board/list/${categoryId}/${nowPage+1}"/>">[&gt]</a></span> --%> 
+			<span><a href="${path}${nowPage+1}">[&gt]</a></span> 
 		</c:if>
 		</span>
 	</div>

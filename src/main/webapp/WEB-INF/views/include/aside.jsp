@@ -49,6 +49,9 @@ a:visited {
 	<c:if test="${!empty id}">
 		<p>${id}님환영합니다!</p>
 		<br>
+		<a href="<c:url value='/member/modify'/>"><div id="asideButton">정보수정</div></a>
+		<br>
+		<br>
 		<a href="<c:url value='/member/logout'/>"
 			onclick="return confirm('로그아웃 하시겠습니까?');"><div id="asideButton">로그아웃</div></a>
 		<br>

@@ -84,17 +84,15 @@ public class MemberController {
 		Member member = memberService.getMemberById(id);
 		model.addAttribute("member", member);
 		
-		return "board/memberModify";
+		return "member.memberModify";
 	}
 	
 	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
 	public String memberModify(Member member, RedirectAttributes reattrs) {
+		System.out.println(member);
 		memberService.memberModify(member);
 		return "redirect:/";
 	}
-	
-	
-	
 	
 	
 	

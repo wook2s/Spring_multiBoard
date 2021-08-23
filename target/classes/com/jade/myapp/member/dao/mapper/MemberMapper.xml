@@ -27,9 +27,9 @@
 			PWD = #{pwd},
 			NAME = #{name},
 			EMAIL = #{email},
-			PHONE =#{phone} 
+			PHONE = #{phone} 
 		WHERE 
-			ID=#{id}		
+			ID = #{id}		
 	]]>
 	</update>
 	

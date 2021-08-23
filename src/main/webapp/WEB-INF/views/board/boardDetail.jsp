@@ -126,7 +126,7 @@
 	<div id="goListDiv">
 		<c:if test="${board.id == id}">
 			<a href="<c:url value='/board/modify/${board.categoryId}/${board.boardId}'/>" onclick="return confirm('${board.boardId}번 글을 수정하시겠습니까?');"><div id="goList">게시물 수정</div></a>
-			<a href="<c:url value='/board/delete/${board.categoryId}/${board.boardId}'/>" onclick="return confirm('${board.boardId}번 글을 수정하시겠습니까?');"><div id="goList">게시물 삭제</div></a>
+			<a href="<c:url value='/board/delete/${board.categoryId}/${board.boardId}'/>" onclick="return confirm('${board.boardId}번 글을 삭제하시겠습니까?');"><div id="goList">게시물 삭제</div></a>
 		</c:if>
 		<a href="<c:url value='/board/list/1'/>"><div id="goList">게시판 돌아가기</div></a>
 	</div>

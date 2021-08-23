@@ -246,13 +246,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/delete/{categoryId}/{boardId}")
-	public String boardDelete(@PathVariable int boardId) {
-		int returnCategory = boardService.getBoard(boardId).getCategoryId();
+	public String boardDelete(@PathVariable int categoryId, @PathVariable int boardId) {
 
 		replyService.replyDeleteByBoardId(boardId);
 		boardService.deleteBoard(boardId);
 		
-		return "redirect:/board/list/"+returnCategory;
+		return "redirect:/board/list/"+categoryId+"/"+1;
 	}
 	
 	@RequestMapping(value = "/board/detail/replyInsert/{categoryId}/{boardId}", method = RequestMethod.POST)

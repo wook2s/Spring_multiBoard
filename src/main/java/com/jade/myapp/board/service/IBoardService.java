@@ -22,5 +22,6 @@ public interface IBoardService {
 	List<Board> search(int categoryId, String option, String word, int nowPage);
 	int getTotalBoardCount(int categoryId);
 	int getSearchTotalCount(int categoryId, String option, String word);
+	Board getMaxViewByCategoryId(int categoryId);
 
 }

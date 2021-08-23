@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"
     isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +39,12 @@
 	#goListDiv{
 		text-align: right;
 	}
+	#content{
+		min-height: 400px;
+	}
+	#imgVideo{
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -67,6 +73,23 @@
 		</table><br>
 		
 	<div id="content">
+		<div id="imgVideo">
+			<div style="height: 10px;"></div>
+			<c:if test="${board.categoryId == 2}">
+				<c:set var="len" value="${fn:length(board.fileName)}"/>
+				<c:set var="filetype" value="${fn:toUpperCase(fn:substring(board.fileName, len-4, len))}" />
+				<c:if test="${(filetype eq '.JPG') or (filetype eq '.JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}">
+					<img src="<c:url value='/board/detail/img/2/${board.boardId}'/>" width="300" class="img-thumbnail"/>
+				</c:if>
+			</c:if>
+			<c:if test="${board.categoryId == 3}">
+				<c:set var="len" value="${fn:length(board.fileName)}"/>
+				<c:set var="filetype" value="${fn:toUpperCase(fn:substring(board.fileName, len-4, len))}" />
+				<c:if test="${(filetype eq '.MP4') or (filetype eq '.MKV') or (filetype eq '.AVI')}">
+					<video src="<c:url value='/board/detail/video/3/${board.boardId}'/>" controls="controls" ></video>			
+				</c:if>
+			</c:if>
+		</div>
 		<p>${board.content}</p>
 		
 	</div>

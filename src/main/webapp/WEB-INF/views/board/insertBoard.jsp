@@ -52,14 +52,18 @@ textarea {
 			<table>
 				<tr>
 					<th>카테고리</th>
-					<td><select name="categoryId">
-							<option value="1" />일반 게시판
-							</option>
-							<option value="2" />사진 게시판
-							</option>
-							<option value="3" />영상 게시판
-							</option>
-					</select></td>
+					<td>
+						<select name="categoryId">
+						<c:forEach var="category" items="${categoryList}">
+							<c:if test="${category.categoryId != categoryId }">
+							<option value="${category.categoryId}">${category.categoryName}
+							</c:if>
+							<c:if test="${category.categoryId == categoryId }">
+							<option value="${category.categoryId}" selected="selected">${category.categoryName}
+							</c:if>
+						</c:forEach>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>작성자</th>
@@ -68,12 +72,12 @@ textarea {
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="title" /></td>
+					<td><input type="text" name="title" required="required"/></td>
 				</tr>
 				<tr>
 					<th>내용</th>
 					<td><textarea name="content" rows="20" cols="80"
-							style="border-radius: 10px 10px;"></textarea></td>
+							style="border-radius: 10px 10px;" required="required"></textarea></td>
 				</tr>
 				<tr>
 					<th>파일</th>

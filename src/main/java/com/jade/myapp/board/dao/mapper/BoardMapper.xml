@@ -267,6 +267,18 @@
    			CATEGORY_ID= #{categoryId}
 	]]>
 	</select>
-	
+
+	<select id="getMaxViewBoardIdByCategoryId" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT 
+			max(BOARD_ID) 
+		KEEP
+			(DENSE_RANK FIRST ORDER BY READ_COUNT DESC, WRITE_DATE DESC) 
+		FROM 
+			S_BOARD 
+		WHERE 
+			CATEGORY_ID = #{categoryId}
+	]]>
+	</select>
 
 </mapper>

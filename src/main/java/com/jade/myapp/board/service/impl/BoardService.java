@@ -167,5 +167,14 @@ public class BoardService implements IBoardService{
 		return totalCount;
 	}
 
+	@Override
+	@Transactional
+	public Board getMaxViewByCategoryId(int categoryId) {
+		int maxBoardId = boardRepository.getMaxViewBoardIdByCategoryId(categoryId);
+		Board board = boardRepository.getBoard(maxBoardId);
+		
+		return board;
+	}
+
 
 }

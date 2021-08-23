@@ -22,15 +22,21 @@
 			display:inline-block;
 			width: 32%;
 			height: 220px;
+			text-align: center;
 		}
 		#subbody .sub2{
 			flex : 1;
 			display:inline-block;
 			width: 32%;
 			height: 220px;
+			text-align: center;
 		}
 		ul{
 	   list-style:none;
+	   }
+	   .heat{
+	   	text-align: center;
+	   	margin-bottom: 10px;
 	   }
 	
 	</style>
@@ -57,17 +63,32 @@
 	<p>게시판 메인 페이지입니다.</p>
 	<nav>
 		<ul>
-			<li><a href="<c:url value='/board/list/1/1'/>">1번 카테고리</a></li>
-			<li><a href="<c:url value='/board/list/2/1'/>">2번 카테고리</a></li>
-			<li><a href="<c:url value='/board/list/3/1'/>">3번 카테고리</a></li>
+			<li><a href="<c:url value='/board/list/1/1'/>">일반 게시판</a></li>
+			<li><a href="<c:url value='/board/list/2/1'/>">사진 게시판</a></li>
+			<li><a href="<c:url value='/board/list/3/1'/>">영상 게시판</a></li>
 		</ul>
 	</nav>
 </div>
 <hr>
 <div id="subbody">
-		<div class="sub1"></div>	
-		<div class="sub1"></div>	
-		<div class="sub2"></div>	
+		<div class="sub1">
+			<div class="heat">일반 게시판 최대 조회</div>
+			<div>
+			 <a href="<c:url value='/board/detail/${board1.categoryId}/${board1.boardId}'/>">제목 : ${board1.title}, 조회수 ${board1.readCount}</a>
+			</div>
+		</div>	
+		<div class="sub1">
+			<div class="heat">사진 게시판 최대 조회</div>
+			<div>
+			 <a href="<c:url value='/board/detail/${board2.categoryId}/${board2.boardId}'/>">제목 : ${board2.title}, 조회수 ${board2.readCount}</a>
+			</div>
+		</div>	
+		<div class="sub2">
+			<div class="heat">영상 게시판 최대 조회</div>
+			<div>
+			 <a href="<c:url value='/board/detail/${board3.categoryId}/${board3.boardId}'/>">제목 : ${board3.title}, 조회수 ${board3.readCount}</a>
+			</div>
+		</div>	
 </div>	
 </body>
 </html>

@@ -49,7 +49,13 @@ public class BoardController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
-		model.addAttribute("id", (String)session.getAttribute("id"));
+		Board board1 = boardService.getMaxViewByCategoryId(1);
+		Board board2 = boardService.getMaxViewByCategoryId(2);
+		Board board3 = boardService.getMaxViewByCategoryId(3);
+		model.addAttribute("board1", board1);
+		model.addAttribute("board2", board2);
+		model.addAttribute("board3", board3);
+		
 		return "board.home";
 	}
 	
@@ -59,7 +65,8 @@ public class BoardController {
 			@PathVariable int categoryId, 
 			@PathVariable int nowPage, 
 			Model model,
-			HttpServletRequest request) {
+			HttpServletRequest request,
+			HttpSession session) {
 		List<Board> boardList = boardService.getAllBoardListByCategory(categoryId, nowPage);
 		int totalBoardCount = boardService.getTotalBoardCount(categoryId);
 		
@@ -69,6 +76,8 @@ public class BoardController {
 		}else if(totalBoardCount % 10 != 0) {
 			lastPage = totalBoardCount/10 +1;
 		}
+		
+		session.setAttribute("categoryId", categoryId);
 		
 		String pathTmp = request.getRequestURI();
 		int tmp = pathTmp.lastIndexOf("/");
@@ -87,11 +96,15 @@ public class BoardController {
 	@RequestMapping(value = "/board/list/{categoryId}")
 	public String getAllBoardListByCategory(@PathVariable int categoryId, Model model, HttpServletRequest request) {
 		
-		return getAllBoardListByCategory(categoryId, 1, model, request);
+		return getAllBoardListByCategory(categoryId, 1, model, request, request.getSession());
 	}
 	
-	@RequestMapping(value = "/board/detail/{boardId}")
-	public String getBoardDetail(@PathVariable int boardId, Model model, HttpSession session) {
+	@RequestMapping(value = "/board/detail/{categoryId}/{boardId}")
+	public String getBoardDetail(
+			@PathVariable int boardId,
+			@PathVariable int categoryId,
+			Model model, 
+			HttpSession session) {
 		boardService.addReadCount(boardId);
 		List<Reply> replyList = replyService.getReplyListByBoardId(boardId);
 		Board board = boardService.getBoard(boardId);
@@ -103,6 +116,40 @@ public class BoardController {
 		return "board.boardDetail";
 	}
 	
+	// 이미지 불러오기 
+	@RequestMapping(value="/board/detail/img/2/{boardId}")
+	public ResponseEntity<byte[]> getImageFile(@PathVariable int boardId){
+		BoardFile file = boardService.getFileByBoardId(boardId);
+		final HttpHeaders headers = new HttpHeaders();
+		
+		if(file != null) {
+			logger.info("getFile" + file.toString());
+			String[] mtypes = file.getFileContentType().split("/");
+			headers.setContentType(new MediaType(mtypes[0],mtypes[1]));
+			headers.setContentLength(file.getFileSize());
+			headers.setContentDispositionFormData("attachment", file.getFileName() , Charset.forName("UTF-8"));
+			return new ResponseEntity<byte[]>(file.getFileData(),headers,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+		}
+	}
+	//영상
+	@RequestMapping(value="/board/detail/video/3/{boardId}")
+	public ResponseEntity<byte[]> getVideoFile(@PathVariable int boardId){
+		BoardFile file = boardService.getFileByBoardId(boardId);
+		final HttpHeaders headers = new HttpHeaders();
+		
+		if(file != null) {
+			logger.info("getFile" + file.toString());
+			String[] mtypes = file.getFileContentType().split("/");
+			headers.setContentType(new MediaType(mtypes[0],mtypes[1]));
+			headers.setContentLength(file.getFileSize());
+			headers.setContentDispositionFormData("attachment", file.getFileName() , Charset.forName("UTF-8"));
+			return new ResponseEntity<byte[]>(file.getFileData(),headers,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+		}
+	}
 	@RequestMapping(value = "/board/detail/downloadFile/{boardId}")
 	public ResponseEntity<byte[]> downloadFile(@PathVariable int boardId) {
 		BoardFile file = boardService.getFileByBoardId(boardId);
@@ -123,6 +170,7 @@ public class BoardController {
 		List<BoardCategory> categoryList = boardCategoryService.getCategoryList();
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("id", (String)session.getAttribute("id"));
+		model.addAttribute("categoryId", session.getAttribute("categoryId"));
 		return "board.insertBoard";
 	}
 	
@@ -284,6 +332,12 @@ public class BoardController {
 		model.addAttribute("totalBoardCount", searchTotalCount);
 		model.addAttribute("boardList", boardList);
 		return "board.listPage";
+	}
+	
+	@RequestMapping("/board/maxView/{categoryId}")
+	public void getMaxView(int categoryId, Model model) {
+		Board board = boardService.getMaxViewByCategoryId(categoryId);
+		model.addAttribute("maxViewBoard", board);
 	}
 	
 }

@@ -63,7 +63,7 @@
 			<tr>
 				<td>${board.boardId}</td>
 				<td>${board.id}</td>
-				<td><a href="<c:url value='/board/detail/${board.boardId}'/>">${board.title} [${board.replyNum}]</a></td>
+				<td><a href="<c:url value='/board/detail/${board.categoryId}/${board.boardId}'/>">${board.title} [${board.replyNum}]</a></td>
 				<td>${board.writeDate}</td>
 				<td>${board.readCount}</td>
 			</tr>

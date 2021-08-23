@@ -53,4 +53,6 @@ public interface IBoardRepository {
 			@Param(value = "id")String id, 
 			@Param(value = "word")String word);
 
+	int getMaxViewBoardIdByCategoryId(int categoryId);
+
 }

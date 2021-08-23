@@ -106,26 +106,27 @@
 			<th width="5%">${reply.id}</th>
 			<td width="70%">${reply.content}</td>
 			<c:if test="${reply.id == id}">
-			<td width="10%"><a href="<c:url value='/board/detail/replyModify/${board.boardId}/${reply.replyId}'/>">수정</a></td>
-			<td width="10%"><a href="<c:url value='/board/detail/replyDelete/${board.boardId}/${reply.replyId}'/>">삭제</a></td>
+			<td width="10%"><a href="<c:url value='/board/detail/replyModify/${board.categoryId}/${board.boardId}/${reply.replyId}'/>">수정</a></td>
+			<td width="10%"><a href="<c:url value='/board/detail/replyDelete/${board.categoryId}/${board.boardId}/${reply.replyId}'/>">삭제</a></td>
 			</c:if>
 		</tr>
 		</c:forEach>
 	</table>
 	<br>
 	
-	<form action="<c:url value='/board/detail/replyInsert/${board.boardId}'/>" method="post">
+	<form action="<c:url value='/board/detail/replyInsert/${board.categoryId}/${board.boardId}'/>" method="post">
 		<input id="replyId" type="text" name="id" value="${id}" readonly="readonly" style="border:none; width: 50px;"/>
 		<input type="text" name="content" style="width: 70%; height: 20px;"/>
 		<input type="hidden" name="_boardId" value="${board.boardId}/">
+		<input type="hidden" name="_categoryId" value="${board.categoryId}/">
 		<input type="submit" value="댓글달기">
 	</form>
 	
 	<hr><br><br>
 	<div id="goListDiv">
 		<c:if test="${board.id == id}">
-			<a href="<c:url value='/board/modify/${board.boardId}'/>" onclick="return confirm('${board.boardId}번 글을 삭제하시겠습니까?');"><div id="goList">게시물 수정</div></a>
-			<a href="<c:url value='/board/delete/${board.boardId}'/>" onclick="return confirm('${board.boardId}번 글을 수정하시겠습니까?');"><div id="goList">게시물 삭제</div></a>
+			<a href="<c:url value='/board/modify/${board.categoryId}/${board.boardId}'/>" onclick="return confirm('${board.boardId}번 글을 수정하시겠습니까?');"><div id="goList">게시물 수정</div></a>
+			<a href="<c:url value='/board/delete/${board.categoryId}/${board.boardId}'/>" onclick="return confirm('${board.boardId}번 글을 수정하시겠습니까?');"><div id="goList">게시물 삭제</div></a>
 		</c:if>
 		<a href="<c:url value='/board/list/1'/>"><div id="goList">게시판 돌아가기</div></a>
 	</div>

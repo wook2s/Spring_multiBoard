@@ -74,7 +74,7 @@
 	<hr>
 	<p style="text-align: center;">댓글</p>
 	
-	<form action="<c:url value='/board/detail/replyModify/${board.boardId}/${replyId}'/>" method="post">
+	<form action="<c:url value='/board/detail/replyModify/${board.categoryId}/${board.boardId}/${replyId}'/>" method="post">
 		<table style="width: 100%">
 			<c:forEach var="reply" items="${replyList }">
 				<c:if test="${reply.replyId != replyId}">

@@ -35,7 +35,7 @@
 </head>
 <body>
 	<div id="container">
-	<form action="/myapp/board/modify/${board.boardId}" method="post" enctype="multipart/form-data">
+	<form action="/myapp/board/modify/${board.categoryId}/${board.boardId}" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th>카테고리</th>

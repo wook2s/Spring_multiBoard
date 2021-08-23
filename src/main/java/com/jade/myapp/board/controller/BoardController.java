@@ -205,14 +205,14 @@ public class BoardController {
 		return "redirect:/board/list/"+board.getCategoryId();
 	}
 	
-	@RequestMapping(value = "/board/modify/{boardId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/modify/{categoryId}/{boardId}", method = RequestMethod.GET)
 	public String boardModify(Model model, @PathVariable int boardId) {
 		Board board =boardService.getBoard(boardId);
 		model.addAttribute("board", board);
 		
 		return "board.boardModify";
 	}
-	@RequestMapping(value = "/board/modify/{boardId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/board/modify/{categoryId}/{boardId}", method = RequestMethod.POST)
 	public String boardModify(Board board, RedirectAttributes reattrs, String preFileName) {
 		logger.info("modify board");
 		try {
@@ -242,10 +242,10 @@ public class BoardController {
 			reattrs.addFlashAttribute("errorMessage",e.getMessage());
 		}
 		
-		return "redirect:/board/detail/"+board.getBoardId();
+		return "redirect:/board/detail/"+board.getCategoryId()+"/"+board.getBoardId();
 	}
 	
-	@RequestMapping(value = "/board/delete/{boardId}")
+	@RequestMapping(value = "/board/delete/{categoryId}/{boardId}")
 	public String boardDelete(@PathVariable int boardId) {
 		int returnCategory = boardService.getBoard(boardId).getCategoryId();
 
@@ -255,24 +255,24 @@ public class BoardController {
 		return "redirect:/board/list/"+returnCategory;
 	}
 	
-	@RequestMapping(value = "/board/detail/replyInsert/{boardId}", method = RequestMethod.POST)
-	public String replyInsert(@PathVariable int boardId, Reply reply) {
+	@RequestMapping(value = "/board/detail/replyInsert/{categoryId}/{boardId}", method = RequestMethod.POST)
+	public String replyInsert(@PathVariable int categoryId, @PathVariable int boardId, Reply reply) {
 		
 		reply.setContent(Jsoup.clean(reply.getContent(), Whitelist.basic()));
 		replyService.replyInsert(reply);
 		boardService.addReplyNum(boardId);
 		
-		return "redirect:/board/detail/"+boardId;
+		return "redirect:/board/detail/"+categoryId+"/"+boardId;
 	}
 	
-	@RequestMapping(value = "/board/detail/replyDelete/{boardId}/{replyId}", method = RequestMethod.GET)
-	public String replyDelete(@PathVariable int boardId, @PathVariable int replyId) {
+	@RequestMapping(value = "/board/detail/replyDelete/{categoryId}/{boardId}/{replyId}", method = RequestMethod.GET)
+	public String replyDelete(@PathVariable int categoryId, @PathVariable int boardId, @PathVariable int replyId) {
 		replyService.replyDeleteByReplyId(replyId);
 		boardService.subReplyNum(boardId);
-		return "redirect:/board/detail/"+boardId;
+		return "redirect:/board/detail/"+categoryId+"/"+boardId;
 	}
 	
-	@RequestMapping(value = "/board/detail/replyModify/{boardId}/{replyId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/detail/replyModify/{categoryId}/{boardId}/{replyId}", method = RequestMethod.GET)
 	public String replyModify(@PathVariable int boardId, @PathVariable int replyId, Model model) {
 		Board board = boardService.getBoard(boardId);
 		List<Reply> replyList = replyService.getReplyListByBoardId(boardId);
@@ -284,12 +284,12 @@ public class BoardController {
 		return "board.replyModify";
 	}
 	
-	@RequestMapping(value = "/board/detail/replyModify/{boardId}/{replyId}", method = RequestMethod.POST)
-	public String replyModify(Reply reply,@PathVariable int boardId, @PathVariable int replyId) {
+	@RequestMapping(value = "/board/detail/replyModify/{categoryId}/{boardId}/{replyId}", method = RequestMethod.POST)
+	public String replyModify(Reply reply,@PathVariable int categoryId, @PathVariable int boardId, @PathVariable int replyId) {
 		reply.setContent(Jsoup.clean(reply.getContent(), Whitelist.basic()));
 		replyService.replyModify(reply);
 		
-		return "redirect:/board/detail/"+boardId;
+		return "redirect:/board/detail/"+categoryId+"/"+boardId;
 	}
 	
 	@RequestMapping(value = "/board/search", method = RequestMethod.POST)

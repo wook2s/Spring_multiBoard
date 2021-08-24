@@ -3,14 +3,16 @@
     isELIgnored="false"
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
    <meta charset="UTF-8">
-   <title>회원 정보</title>
+   <title>회원 정보 수정</title>
 <body>
 
-<form method="post"   action="<c:url value='/member/modify'/>">
+<c:url var = "actionURL" value='/member/modify' scope="page"/>
+<form:form action="${actionoURL}" modelAttribute="member">
 <h1  style="text-align:center">회원 정보</h1>
 <table  align="center">
     <tr>
@@ -19,19 +21,19 @@
     </tr>
     <tr>
         <td width="200"><p align="right">비밀번호</td>
-        <td width="400"><input type="password"  name="pwd" required="required" value="${member.pwd}"></td>
+        <td width="400"><input type="password"  name="pwd" required="required" value="${member.pwd}"><form:errors path="pwd"/></td>
     </tr>
     <tr>
         <td width="200"><p align="right">이름</td>
-        <td width="400"><p><input type="text"  name="name" required="required" value="${member.name}"></td>
+        <td width="400"><p><input type="text"  name="name" required="required" value="${member.name}"><form:errors path="name"/></td>
     </tr>
     <tr>
         <td width="200"><p align="right">이메일</td>
-        <td width="400"><p><input type="text"  name="email" required="required" value="${member.email}"></td>
+        <td width="400"><p><input type="text"  name="email" required="required" value="${member.email}"><form:errors path="email"/></td>
     </tr>
     <tr>
         <td width="200"><p align="right">전화번호</td>
-        <td width="400"><p><input type="text"  name="phone" required="required" value="${member.phone}"></td>
+        <td width="400"><p><input type="text"  name="phone" required="required" value="${member.phone}"><form:errors path="phone"/></td>
     </tr>
     <tr>
         <td width="200"><p>&nbsp;</p></td>
@@ -40,6 +42,6 @@
   		</td>
     </tr>
 </table>
-</form>
+</form:form>
 </body>
 </html>

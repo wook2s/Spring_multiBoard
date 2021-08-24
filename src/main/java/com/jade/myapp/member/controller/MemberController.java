@@ -57,9 +57,9 @@ public class MemberController {
 		}
 		try {
 			memberService.memberInsert(member);
-			reattrs.addFlashAttribute("signupMessage", "회원가입 완료");
+			reattrs.addFlashAttribute("memberMessage", "회원가입 완료");
 		} catch (Exception e) {
-			reattrs.addFlashAttribute("signupMessage", "회원가입 실패");
+			reattrs.addFlashAttribute("memberMessage", "회원가입 실패");
 		}
 		
 		return "redirect:/";
@@ -120,9 +120,24 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
-	public String memberModify(Member member, RedirectAttributes reattrs) {
-		System.out.println(member);
-		memberService.memberModify(member);
+	public String memberModify(
+			@ModelAttribute("member") @Valid Member member, 
+			BindingResult result, 
+			Model model,
+			RedirectAttributes reattrs) {
+		
+		logger.info(member.toString());
+		
+		if(result.hasErrors()) {
+			return "member.memberModify";
+		}
+		
+		try {
+			memberService.memberModify(member);
+			reattrs.addFlashAttribute("memberMessage", "회원수정 완료");
+		} catch (Exception e) {
+			reattrs.addFlashAttribute("memberMessage", "회원수정 실패");
+		}
 		return "redirect:/";
 	}
 	

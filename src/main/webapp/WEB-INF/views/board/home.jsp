@@ -57,9 +57,9 @@
 			alert("회원 탈퇴 실패");
 		</script>
 	</c:if>
-	<c:if test="${!empty signupMessage}">
+	<c:if test="${!empty memberMessage}">
 		<script type="text/javascript">
-			alert("${signupMessage}");
+			alert("${memberMessage}");
 		</script>
 	</c:if>
 	

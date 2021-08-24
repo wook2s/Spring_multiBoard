@@ -11,7 +11,7 @@ public class MemberValidator implements Validator {
 
 	static final String idPattern = "[a-zA-Z0-9]{2,10}";
 	static final String pwdPattern = ".{4,10}";
-	static final String namePattern = "[a-zA-Z]{2,20}";
+	static final String namePattern = "[a-zA-Z가-힣]{2,20}";
 	static final String emailPattern = "^[a-zA-Z]{1,}.{1,}@[a-zA-Z]{1,}[.](com)|(net)|(org)$";
 	static final String phonePattern = "^0\\d{1,2}-\\d{3,4}-\\d{4}";
 
@@ -27,7 +27,7 @@ public class MemberValidator implements Validator {
 
 		String id = member.getId();
 		if (!id.matches(idPattern)) {
-			errors.rejectValue("id", "idError", "아이디는 2~10자입니다.");
+			errors.rejectValue("id", "idError", "아이디는 영문 2~10자입니다.");
 		}
 
 		String pwd = member.getPwd();
@@ -37,7 +37,7 @@ public class MemberValidator implements Validator {
 		
 		String name = member.getName();
 		if(!name.matches(namePattern)) {
-			errors.rejectValue("name", "nameError", "이름은 2~20자입니다");
+			errors.rejectValue("name", "nameError", "이름은 영문/한글 2~20자입니다");
 		}
 
 		String email = member.getEmail();

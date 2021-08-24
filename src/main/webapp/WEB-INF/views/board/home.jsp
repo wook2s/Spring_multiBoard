@@ -57,6 +57,11 @@
 			alert("회원 탈퇴 실패");
 		</script>
 	</c:if>
+	<c:if test="${!empty signupMessage}">
+		<script type="text/javascript">
+			alert("${signupMessage}");
+		</script>
+	</c:if>
 	
 <div id="mainbody">
 	<h1>Hello!</h1>

@@ -15,13 +15,18 @@
    
 </head>   
 <body>
+<c:if test="${!empty idMessage}">
+	<script type="text/javascript">
+		alert("${idMessage}");
+	</script>
+</c:if>
 <c:url var = "actionURL" value='/member/insert' scope="page"/>
 <form:form action="${actionoURL}" modelAttribute="member">
 <h1  style="text-align:center">회원 등록창</h1>
 <table  align="center">
     <tr>
        <td width="200"><p align="right">아이디</td>
-       <td width="400"><input type="text" name="id" required="required" autocomplete = "off" value="${member.id}"><form:errors path="id"/></td>
+       <td width="400"><input type="text" name="id" required="required" autocomplete = "off" value="${member.id}" readonly="readonly"><form:errors path="id"/></td>
     </tr>
     <tr>
         <td width="200"><p align="right">비밀번호</td>
@@ -42,9 +47,9 @@
     <tr>
         <td width="200"><p>&nbsp;</p></td>
         <td width="400">
-	<input type="submit" value="가입하기">
-	<input type="reset" value="다시입력">
-  </td>
+			<input type="submit" value="가입하기">
+			<input type="reset" value="다시입력">
+ 		</td>
     </tr>
 </table>
 </form:form>

@@ -12,5 +12,7 @@ public interface IMemberService {
 	String memberDelete(String id);
 
 	void memberModify(Member member);
+
+	boolean idDuplicateCheck(String id);
 	
 }

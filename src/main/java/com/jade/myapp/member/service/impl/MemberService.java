@@ -59,4 +59,15 @@ public class MemberService implements IMemberService{
 	public void memberModify(Member member) {
 		memberRepository.memberModify(member);
 	}
+
+	@Override
+	public boolean idDuplicateCheck(String id) {
+		String _id = memberRepository.idDuplicateCheck(id);
+		boolean result = false;
+		if(_id == null || _id.equals("")) {
+			result = true;
+		}
+		
+		return result;
+	}
 }

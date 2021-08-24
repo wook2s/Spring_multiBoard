@@ -27,7 +27,7 @@ public class MemberValidator implements Validator {
 
 		String id = member.getId();
 		if (!id.matches(idPattern)) {
-			errors.rejectValue("id", "idError", "아이디는 영문 2~10자입니다.");
+			errors.rejectValue("id", "idError", "아이디는 영문,숫자 2~10자입니다.");
 		}
 
 		String pwd = member.getPwd();

@@ -43,7 +43,7 @@ a:visited {
 		<a href="<c:url value='/member/login'/>"><div id="asideButton">로그인</div></a>
 		<br>
 		<br>
-		<a href="<c:url value='/member/insert'/>"><div id="asideButton">회원가입</div></a>
+		<a href="<c:url value='/member/insertId'/>"><div id="asideButton">회원가입</div></a>
 		<br>
 	</c:if>
 	<c:if test="${!empty id}">

@@ -14,5 +14,7 @@ public interface IMemberRepository {
 
 	void memberModify(Member member);
 
+	String idDuplicateCheck(String id);
+
 	
 }

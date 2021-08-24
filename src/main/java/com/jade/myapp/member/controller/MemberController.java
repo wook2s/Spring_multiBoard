@@ -3,7 +3,6 @@ package com.jade.myapp.member.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.velocity.app.event.ReferenceInsertionEventHandler.referenceInsertExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,36 @@ public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
+	@RequestMapping(value = "/member/insertId", method = RequestMethod.GET)
+	public String idDuplicateCheck() {
+		return "member.memberInsertId";
+	}
+	
+	@RequestMapping(value = "/member/insertId", method = RequestMethod.POST)
+	public String idDuplicateCheck(String id ,RedirectAttributes reattrs) {
+		
+		String idPattern = "[a-zA-Z0-9]{2,10}";
+		boolean reg = id.matches(idPattern);
+		boolean idCheck = memberService.idDuplicateCheck(id);
+
+		if(reg == false) {
+			reattrs.addFlashAttribute("idMessage", "아이디는 영문,숫자 2~10자입니다.");
+			return "redirect:/member/insertId";
+		}
+		else if(idCheck == false) {
+			reattrs.addFlashAttribute("idMessage", "아이디가 사용중입니다.");
+			return "redirect:/member/insertId";
+		}else {
+			reattrs.addFlashAttribute("idMessage", "사용가능");
+			Member member = new Member();
+			member.setId(id);
+			reattrs.addFlashAttribute("member", member);
+			reattrs.addFlashAttribute("idCheck", "pass");
+			
+			return "redirect:/member/insert";
+		}
+	}
+	
 	@RequestMapping(value = "/member/insert", method = RequestMethod.GET)
 	public String memberInsert() {
 
@@ -49,7 +78,6 @@ public class MemberController {
 			BindingResult result, 
 			Model model,
 			RedirectAttributes reattrs) {
-		
 		logger.info(member.toString());
 			
 		if(result.hasErrors()) {

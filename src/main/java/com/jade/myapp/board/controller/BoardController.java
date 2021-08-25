@@ -52,12 +52,11 @@ public class BoardController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
 		//각 게시판 별 최대조회수 글을 뷰에 전달
-		Board board1 = boardService.getMaxViewByCategoryId(1);
-		Board board2 = boardService.getMaxViewByCategoryId(2);
-		Board board3 = boardService.getMaxViewByCategoryId(3);
-		model.addAttribute("board1", board1);
-		model.addAttribute("board2", board2);
-		model.addAttribute("board3", board3);
+		Board[] boards = new Board[3];
+		for(int i=0; i<boards.length; i++) {
+			boards[i] = boardService.getMaxViewByCategoryId(i+1);
+			model.addAttribute("board"+(i+1), boards[i]);
+		}
 		
 		return "board.home";
 	}

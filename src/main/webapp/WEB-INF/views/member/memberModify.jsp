@@ -21,7 +21,7 @@
     </tr>
     <tr>
         <td width="200"><p align="right">비밀번호</td>
-        <td width="400"><input type="password"  name="pwd" required="required" value="${member.pwd}"><form:errors path="pwd"/></td>
+        <td width="400"><input type="password"  name="pwd" required="required" ><form:errors path="pwd"/></td>
     </tr>
     <tr>
         <td width="200"><p align="right">이름</td>

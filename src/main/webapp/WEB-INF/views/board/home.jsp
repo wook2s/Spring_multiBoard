@@ -38,6 +38,9 @@
 	   	text-align: center;
 	   	margin-bottom: 10px;
 	   }
+	   li{
+	   	margin-bottom: 10px;
+	   }
 	
 	</style>
 </head>
@@ -68,9 +71,9 @@
 	<p>게시판 메인 페이지입니다.</p>
 	<nav>
 		<ul>
-			<li><a href="<c:url value='/board/list/1/1'/>">일반 게시판</a></li>
-			<li><a href="<c:url value='/board/list/2/1'/>">사진 게시판</a></li>
-			<li><a href="<c:url value='/board/list/3/1'/>">영상 게시판</a></li>
+			<li><a href="<c:url value='/board/list/1/1'/>">일반 게시판</a><br></li>
+			<li><a href="<c:url value='/board/list/2/1'/>">사진 게시판</a><br></li>
+			<li><a href="<c:url value='/board/list/3/1'/>">영상 게시판</a><br></li>
 		</ul>
 	</nav>
 </div>

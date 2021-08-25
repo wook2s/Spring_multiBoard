@@ -47,7 +47,7 @@
 	<br><br>
 	
 	<div align="center">
-    <a href="<c:url value='/member/insert'/>">회원가입</a>
+    <a href="<c:url value='/member/insertId'/>">회원가입</a>
     </div>
 </form>
 </body>

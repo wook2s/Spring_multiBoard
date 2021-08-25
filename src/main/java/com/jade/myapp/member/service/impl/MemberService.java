@@ -1,6 +1,10 @@
 package com.jade.myapp.member.service.impl;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +17,17 @@ public class MemberService implements IMemberService{
 
 	@Autowired
 	IMemberRepository memberRepository;
-
+	
+	@Autowired
+	PasswordEncoder pwdEnc ;
+	
 	@Override
 	public void memberInsert(Member member) {
+		System.out.println("---------- 인코딩 체크 ----------");
+		String newPwd = pwdEnc.encode(member.getPwd());
+		System.out.println(newPwd);
+		member.setPwd(newPwd);
+		System.out.println("---------- 인코딩 체크 ----------");
 		memberRepository.memberInsert(member);
 	}
 
@@ -26,12 +38,11 @@ public class MemberService implements IMemberService{
 		if(member == null) {
 			return "idFail";
 		}
-		else if (member != null && !member.getPwd().equals(pwd)) {
+		else if (member != null && !pwdEnc.matches(pwd, member.getPwd())) {
 			return "pwdFail";
 		}else {
 			return "success";
 		}
-		
 	}
 
 	@Override

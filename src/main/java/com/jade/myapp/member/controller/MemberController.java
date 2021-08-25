@@ -36,11 +36,14 @@ public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
+	//----------아이디 중복확인 요청----------
 	@RequestMapping(value = "/member/insertId", method = RequestMethod.GET)
 	public String idDuplicateCheck() {
 		return "member.memberInsertId";
 	}
+	//----------아이디 중복확인 요청----------
 	
+	//----------아이디 중복확인----------
 	@RequestMapping(value = "/member/insertId", method = RequestMethod.POST)
 	public String idDuplicateCheck(String id ,RedirectAttributes reattrs) {
 		
@@ -65,13 +68,17 @@ public class MemberController {
 			return "redirect:/member/insert";
 		}
 	}
+	//----------아이디 중복확인----------
 	
+	//----------회원가입 요청----------
 	@RequestMapping(value = "/member/insert", method = RequestMethod.GET)
 	public String memberInsert() {
 
 		return "member.memberInsert";
 	}
+	//----------회원가입 요청----------
 
+	//----------회원가입 폼 확인 후 삽입----------
 	@RequestMapping(value = "/member/insert", method = RequestMethod.POST)
 	public String memberInsert(
 			@ModelAttribute("member") @Valid Member member, 
@@ -92,13 +99,17 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	//----------회원가입 폼 확인 후 삽입----------
 
+	//----------로그인 페이지 요청----------
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public String memberLogin() {
 
 		return "member.memberLogin";
 	}
+	//----------로그인 페이지 요청----------
 
+	//----------로그인 처리----------
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
 	public String memberLogin(String id, String pwd, HttpSession session, Model model, RedirectAttributes reattrs) {
 
@@ -107,6 +118,7 @@ public class MemberController {
 		if (result.equals("success")) {
 			reattrs.addFlashAttribute("loginMessage", result);
 			session.setAttribute("id", id);
+			//로그인 성공 시 홈으로 이동
 			return "redirect:/";
 		}else {
 			reattrs.addFlashAttribute("loginMessage", result);
@@ -114,13 +126,17 @@ public class MemberController {
 		}
 
 	}
+	//----------로그인 처리----------
 
+	//----------로그인아웃----------
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String memberLogout(Member member, HttpSession session) {
 		session.removeAttribute("id");
 		return "redirect:/";
 	}
+	//----------로그인아웃----------
 
+	//----------회원 정보 상세보기----------
 	@RequestMapping(value = "/member/detail", method = RequestMethod.GET)
 	public String memberDetail(HttpSession session, Model model) {
 		String id = (String) session.getAttribute("id");
@@ -128,7 +144,9 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "member/memberDetail";
 	}
+	//----------회원 정보 상세보기----------
 
+	//----------회원 정보 삭제----------
 	@RequestMapping(value = "/member/delete", method = RequestMethod.GET)
 	public String memberDelete(HttpSession session, RedirectAttributes reattrs) {
 		String id = (String) session.getAttribute("id");
@@ -137,7 +155,9 @@ public class MemberController {
 		reattrs.addFlashAttribute("memberDeleteMessage", result);
 		return "redirect:/";
 	}
+	//----------회원 정보 삭제----------
 	
+	//----------회원 정보 수정 페이지 요청----------
 	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
 	public String memberModify(Model model, HttpSession session) {
 		String id = (String) session.getAttribute("id");
@@ -146,7 +166,9 @@ public class MemberController {
 		
 		return "member.memberModify";
 	}
+	//----------회원 정보 수정 페이지 요청----------
 	
+	//----------회원 정보 수정----------
 	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
 	public String memberModify(
 			@ModelAttribute("member") @Valid Member member, 
@@ -168,6 +190,7 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
+	//----------회원 정보 수정----------
 	
 	
 	
